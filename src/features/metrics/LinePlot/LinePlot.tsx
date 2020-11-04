@@ -22,7 +22,8 @@ const LinePlot = () => {
         borderColor: "rgba(30, 144, 255, 0.6)",
         backgroundColor: "rgba(30, 144, 255, 0.3)", //skyblue,
         fill: true,
-        pointRadius: 2,
+        pointRadius: 0,
+        showLine: true,
       },
       {
         label: `Confidence: ${classID}`,
@@ -52,8 +53,8 @@ const LinePlot = () => {
             max: 1,
             stepSize: 0.1,
           },
-          type: "linear",
-          position: "left",
+          // type: "linear",
+          // position: "left",
         },
       ],
       xAxes: [
@@ -67,14 +68,14 @@ const LinePlot = () => {
             max: 1,
             stepSize: 0.1,
           },
-          type: "linear",
-          position: "bottom",
+          // type: "linear",
+          // position: "bottom",
         },
       ],
     },
-    animation: {
-      duration: 10,
-    },
+    // animation: {
+    //   duration: 10,
+    // },
   };
 
   return (
