@@ -17,7 +17,7 @@ const LinePlot = () => {
       {
         label: `Class ID: ${classID}`,
         data: precisions.map((pre, idx) =>
-          idx % 50 === 0 ? { x: pre, y: recalls[idx] } : null
+          idx % 1 === 0 ? { x: pre, y: recalls[idx] } : null
         ),
         borderColor: "rgba(30, 144, 255, 0.6)",
         backgroundColor: "rgba(30, 144, 255, 0.3)", //skyblue,
@@ -34,8 +34,8 @@ const LinePlot = () => {
         ],
         borderColor: "rgba(30, 144, 255, 1.0)",
         backgroundColor: "rgba(30, 144, 255, 1.0)",
-        pointRadius: 5,
         pointBackgroundColor: "rgba(30, 144, 255, 1.0)",
+        pointRadius: 5,
       },
     ],
   };
@@ -73,7 +73,7 @@ const LinePlot = () => {
       ],
     },
     animation: {
-      duration: 2,
+      duration: 10,
     },
   };
 

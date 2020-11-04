@@ -43,7 +43,7 @@ const metricsSlice = createSlice({
   reducers: {
     fetchDetermineClassID(state, action) {
       // action.payload == classID: ex. 0
-      state.classId = action.payload;
+      state.classId = parseInt(action.payload);
     },
     fetchDeterminePrecisions(state) {
       //classIDの要素に絞る
@@ -115,6 +115,8 @@ export const {
 } = metricsSlice.actions;
 
 export const selectMetrics = (state: RootState) => state.metrics.metrics;
+export const selectClassIDs = (state: RootState) =>
+  state.metrics.metrics.classIds;
 export const selectClassID = (state: RootState) => state.metrics.classId;
 
 export const selectPrecisions = (state: RootState) => state.metrics.precisions;
