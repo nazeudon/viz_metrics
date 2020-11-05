@@ -7,7 +7,7 @@ import {
   selectRecalls,
 } from "../metricsSlice";
 
-const LinePlot = () => {
+const LinePlot: React.FC = () => {
   const classID = useSelector(selectClassID);
   const precisions = useSelector(selectPrecisions);
   const recalls = useSelector(selectRecalls);

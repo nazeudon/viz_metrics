@@ -15,6 +15,7 @@ type metricsState = {
   recall: number; //一つの要素
   f1: number; //一つの要素
   confidence: number; //一つの要素
+  index: number;
 };
 
 const initialState: metricsState = {
@@ -27,7 +28,8 @@ const initialState: metricsState = {
   precision: 0,
   recall: 0,
   f1: 0,
-  confidence: 0,
+  confidence: 0.5,
+  index: 0,
 };
 
 export const fetchAsyncGetMetrics = createAsyncThunk(
@@ -74,22 +76,28 @@ const metricsSlice = createSlice({
     fetchExtractPrecision(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.precision = state.precisions[action.payload];
+      state.precision = state.precisions.length
+        ? state.precisions[action.payload]
+        : 0;
     },
     fetchExtractRecall(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.recall = state.recalls[action.payload];
+      state.recall = state.recalls.length ? state.recalls[action.payload] : 0;
     },
     fetchExtractF1(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.f1 = state.f1s[action.payload];
+      state.f1 = state.f1s.length ? state.f1s[action.payload] : 0;
     },
     fetchExtractConfidence(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
       state.confidence = state.confidences[action.payload];
+    },
+    fetchExtractIndex(state) {
+      const isLargeNumber = (element: number) => element < state.confidence;
+      state.index = state.confidences.findIndex(isLargeNumber) - 1;
     },
   },
   extraReducers: (builder) => {
@@ -112,6 +120,7 @@ export const {
   fetchExtractRecall,
   fetchExtractF1,
   fetchExtractConfidence,
+  fetchExtractIndex,
 } = metricsSlice.actions;
 
 export const selectMetrics = (state: RootState) => state.metrics.metrics;
@@ -129,5 +138,7 @@ export const selectPrecision = (state: RootState) => state.metrics.precision;
 export const selectRecall = (state: RootState) => state.metrics.recall;
 export const selectF1 = (state: RootState) => state.metrics.f1;
 export const selectConfidence = (state: RootState) => state.metrics.confidence;
+
+export const selectIndex = (state: RootState) => state.metrics.index;
 
 export default metricsSlice.reducer;

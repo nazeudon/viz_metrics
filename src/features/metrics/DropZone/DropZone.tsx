@@ -1,14 +1,22 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAsyncGetMetrics,
   fetchDeterminePrecisions,
   fetchDetermineRecalls,
+  fetchDetermineF1s,
+  fetchDetermineConfidences,
+  fetchExtractPrecision,
+  fetchExtractRecall,
+  fetchExtractF1,
+  fetchExtractIndex,
+  selectIndex,
 } from "../metricsSlice";
 
 const DropZone: React.FC = () => {
   const dispatch = useDispatch();
+  const index = useSelector(selectIndex);
   const readCSV = (csvdata: any) => {
     const splitData = csvdata.split("\n");
     const data = [];
@@ -52,10 +60,15 @@ const DropZone: React.FC = () => {
       const result = e.target!.result;
       const data = readCSV(result);
       const metrics = bookMetrics(data);
-      console.log(metrics);
       await dispatch(fetchAsyncGetMetrics(metrics));
       await dispatch(fetchDeterminePrecisions());
       await dispatch(fetchDetermineRecalls());
+      await dispatch(fetchDetermineF1s());
+      await dispatch(fetchDetermineConfidences());
+      await dispatch(fetchExtractIndex());
+      await dispatch(fetchExtractPrecision(index));
+      await dispatch(fetchExtractRecall(index));
+      await dispatch(fetchExtractF1(index));
 
       //エラーメッセージ
       reader.onerror = function () {
