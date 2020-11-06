@@ -3,7 +3,10 @@ import { Scatter } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import {
   selectClassID,
+  // selectConfidence,
+  selectPrecision,
   selectPrecisions,
+  selectRecall,
   selectRecalls,
 } from "../metricsSlice";
 
@@ -12,12 +15,16 @@ const LinePlot: React.FC = () => {
   const precisions = useSelector(selectPrecisions);
   const recalls = useSelector(selectRecalls);
 
+  // const confidence = useSelector(selectConfidence);
+  const precision = useSelector(selectPrecision);
+  const recall = useSelector(selectRecall);
+
   const data = {
     datasets: [
       {
         label: `Class ID: ${classID}`,
-        data: precisions.map((pre, idx) =>
-          idx % 1 === 0 ? { x: pre, y: recalls[idx] } : null
+        data: recalls.map((pre, idx) =>
+          idx % 1 === 0 ? { x: pre, y: precisions[idx] } : null
         ),
         borderColor: "rgba(30, 144, 255, 0.6)",
         backgroundColor: "rgba(30, 144, 255, 0.3)", //skyblue,
@@ -26,17 +33,18 @@ const LinePlot: React.FC = () => {
         showLine: true,
       },
       {
-        label: `Confidence: ${classID}`,
+        label: `Confidence`,
+        // label: `Confidence: ${confidence.toFixed(2)}`,
         data: [
           {
-            x: 0.6,
-            y: 0.6,
+            x: recall,
+            y: precision,
           },
         ],
         borderColor: "rgba(30, 144, 255, 1.0)",
         backgroundColor: "rgba(30, 144, 255, 1.0)",
         pointBackgroundColor: "rgba(30, 144, 255, 1.0)",
-        pointRadius: 5,
+        pointRadius: 8,
       },
     ],
   };

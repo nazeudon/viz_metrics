@@ -76,24 +76,27 @@ const metricsSlice = createSlice({
     fetchExtractPrecision(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.precision = state.precisions.length
-        ? state.precisions[action.payload]
-        : 0;
+      state.precision =
+        state.precisions.length && action.payload >= 0
+          ? state.precisions[action.payload]
+          : 0;
     },
     fetchExtractRecall(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.recall = state.recalls.length ? state.recalls[action.payload] : 0;
+      state.recall =
+        state.recalls.length && action.payload >= 0
+          ? state.recalls[action.payload]
+          : 0;
     },
     fetchExtractF1(state, action) {
       //1つの要素を抽出する
       //action.payload = index: ex. 1
-      state.f1 = state.f1s.length ? state.f1s[action.payload] : 0;
+      state.f1 =
+        state.f1s.length && action.payload >= 0 ? state.f1s[action.payload] : 0;
     },
     fetchExtractConfidence(state, action) {
-      //1つの要素を抽出する
-      //action.payload = index: ex. 1
-      state.confidence = state.confidences[action.payload];
+      state.confidence = action.payload;
     },
     fetchExtractIndex(state) {
       const isLargeNumber = (element: number) => element < state.confidence;
