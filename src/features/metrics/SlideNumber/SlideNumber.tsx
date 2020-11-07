@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { fetchExtractConfidence, fetchExtractIndex } from "../metricsSlice";
 import { useDispatch } from "react-redux";
-
-const useStyles = makeStyles({
-  root: {
-    width: 300,
-  },
-});
+import styles from "./SlideNumber.module.css";
+import { Grid } from "@material-ui/core";
 
 const valuetext = (value: number) => {
   return `${value}`;
 };
 
 const SlideNumber = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const [value, setValue] = useState<number | number[]>(0.5);
   const handleValueChange = (event: any, newValue: number | number[]) => {
@@ -28,10 +22,17 @@ const SlideNumber = () => {
   }, [value, dispatch]);
 
   return (
-    <div className={classes.root}>
-      <Typography id="discrete-slider" gutterBottom>
-        Confidence Threshould
-      </Typography>
+    <div className={styles.sliderContent}>
+      <Grid container>
+        <Grid item xs={6}>
+          <Typography id="discrete-slider" gutterBottom>
+            Confidence Threshould
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography align="right">{value}</Typography>
+        </Grid>
+      </Grid>
       <Slider
         defaultValue={0.5}
         getAriaValueText={valuetext}
@@ -44,7 +45,6 @@ const SlideNumber = () => {
         value={value}
         onChange={handleValueChange}
       />
-      <Typography>{value}</Typography>
     </div>
   );
 };

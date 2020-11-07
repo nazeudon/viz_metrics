@@ -14,6 +14,7 @@ import {
   fetchExtractF1,
   fetchExtractIndex,
 } from "../metricsSlice";
+import styles from "./SwitchClass.module.css";
 
 const SwitchClass: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const SwitchClass: React.FC = () => {
   }, [index, dispatch]);
 
   return (
-    <FormControl>
+    <FormControl className={styles.switchContent}>
       <NativeSelect
         onChange={async (e) => {
           await dispatch(fetchDetermineClassID(e.target.value));
@@ -43,7 +44,7 @@ const SwitchClass: React.FC = () => {
       >
         {UniqueClassIDs.map((classID, i) => (
           <option key={i} value={classID}>
-            {classID}
+            {`Class ID: ${classID}`}
           </option>
         ))}
       </NativeSelect>

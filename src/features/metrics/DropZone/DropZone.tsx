@@ -13,6 +13,7 @@ import {
   fetchExtractIndex,
   selectIndex,
 } from "../metricsSlice";
+import styles from "./DropZone.module.css";
 
 const DropZone: React.FC = () => {
   const dispatch = useDispatch();
@@ -88,9 +89,9 @@ const DropZone: React.FC = () => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>Drop the files here ...</p>
+        <p className={styles.dragTrue}>Drop and Drag</p>
       ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p className={styles.dragFalse}>Drop and Drag</p>
       )}
     </div>
   );

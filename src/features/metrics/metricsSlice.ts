@@ -16,6 +16,7 @@ type metricsState = {
   f1: number; //一つの要素
   confidence: number; //一つの要素
   index: number;
+  isDrop: boolean;
 };
 
 const initialState: metricsState = {
@@ -30,6 +31,7 @@ const initialState: metricsState = {
   f1: 0,
   confidence: 0.5,
   index: 0,
+  isDrop: false,
 };
 
 export const fetchAsyncGetMetrics = createAsyncThunk(
@@ -102,6 +104,9 @@ const metricsSlice = createSlice({
       const isLargeNumber = (element: number) => element < state.confidence;
       state.index = state.confidences.findIndex(isLargeNumber) - 1;
     },
+    fetchChangeIsDrop(state) {
+      state.isDrop = !state.isDrop;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetMetrics.fulfilled, (state, action) => {
@@ -124,6 +129,7 @@ export const {
   fetchExtractF1,
   fetchExtractConfidence,
   fetchExtractIndex,
+  fetchChangeIsDrop,
 } = metricsSlice.actions;
 
 export const selectMetrics = (state: RootState) => state.metrics.metrics;
@@ -143,5 +149,7 @@ export const selectF1 = (state: RootState) => state.metrics.f1;
 export const selectConfidence = (state: RootState) => state.metrics.confidence;
 
 export const selectIndex = (state: RootState) => state.metrics.index;
+
+export const selectIsDrop = (state: RootState) => state.metrics.isDrop;
 
 export default metricsSlice.reducer;

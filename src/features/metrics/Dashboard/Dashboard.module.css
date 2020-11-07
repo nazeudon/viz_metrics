@@ -1,0 +1,16 @@
+.content {
+  margin-top: 85px;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-color: lightgray;
+  border-radius: 5px;
+  padding: 50px 20px !important;
+}
+
+.plotContent {
+  padding: 0px 10px !important;
+}
+
+.btnContent {
+  margin-top: 10px;
+}

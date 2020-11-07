@@ -1,0 +1,15 @@
+.dragTrue {
+  background-color: white;
+  padding: 60px 80px;
+  margin: 0px;
+  border: dashed 5px;
+  border-color: lightgray;
+}
+
+.dragFalse {
+  background-color: lightgray;
+  padding: 60px 80px;
+  margin: 0px;
+  border: dashed 5px;
+  border-color: rgb(190, 190, 190);
+}
